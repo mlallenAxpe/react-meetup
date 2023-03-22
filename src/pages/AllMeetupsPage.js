@@ -1,7 +1,6 @@
 import MeetupItem from "../components/meetups/MeetupItem";
 import classes from "./../components/meetups/MeetupList.module.css";
 import { useFetch } from "../util-hooks/useFetch";
-import { useEffect, useState } from "react";
 
 
 export default function AllMeetupsPage() {
