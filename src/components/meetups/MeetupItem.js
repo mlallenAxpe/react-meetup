@@ -1,8 +1,10 @@
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
+import { useEffect } from "react";
 
 export default function MeetupItem(props) {
-  let value = props.data
+  let { value, isFave, setFave, unsetFave } = props
+
   return (
     <li key={value.id} className={classes.item} data-test='meet-up-item'>
       <Card>
@@ -15,7 +17,8 @@ export default function MeetupItem(props) {
           <p key={`${value.id}_text_description`}>{value.description}</p>
         </div>
         <div key={`${value.id}_button`} className={classes.actions}>
-          <button>Add to favorites</button>
+          {!isFave && <button onClick={()=>setFave(value.id)}>Add to favorites</button>}
+          {isFave && <button onClick={()=>unsetFave(value.id)}>Remove from favorites</button>}
         </div>
       </Card>
     </li>

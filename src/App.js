@@ -1,43 +1,38 @@
-//import { useState } from "react";
 import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
+import { useFetch } from "./util-hooks/useFetch";
 
 import AllMeetupsPage from "./pages/AllMeetupsPage";
 import FavoritesPage from "./pages/Favorites";
 import NewMeetupsPage from "./pages/NewMeetup";
-//import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE } from "./utils/constants";
 
 import MainNavigation from "./components/layout/MainNavigation";
 import Layout from "./components/layout/Layout";
+import { useEffect, useState } from "react";
 
 function App() {
-  //const [page, setPage] = useState(ALL_MEETUP_PAGE);
+  const dataFavorites = useFetch({
+    url: "/favorites.json",
+  })
+  const dataMeetups = useFetch({
+    url: "/data.json",
+  })
+  const [meetups, setMeetups] = useState([])
+  const [favorites, setFavorites] = useState([])
 
-  /* function getCurrentPageComponent() {
-    let currentPageComponent = <AllMeetupsPage />;
-    switch (page) {
-      case FAVORITES_PAGE:
-        currentPageComponent = <FavoritesPage />;
-        break;
-      case NEW_MEETUP_PAGE:
-        currentPageComponent = <NewMeetupsPage />;
-        break;
-      default:
-        currentPageComponent = <AllMeetupsPage />;
-    }
-
-    return currentPageComponent;
-  } */
-
+  useEffect(() => {
+    setMeetups(dataMeetups)
+    setFavorites(dataFavorites)
+  }, [dataMeetups, dataFavorites])
+  
   return (
     <div data-test="app">
       <Router>
-        <MainNavigation />
+        <MainNavigation favorites={favorites.length}/>
         <Layout>
           <Routes>
-            <Route path="allMeetups" element={<AllMeetupsPage />}/>
-            <Route path="favorites" element={<FavoritesPage />}/>
-            <Route path="newMeetup" element={<NewMeetupsPage />}/>
-            <Route path="" element={<AllMeetupsPage />}/>
+            <Route path="favorites" element={<FavoritesPage favorites={favorites}/>}/>
+            <Route path="newMeetup" element={<NewMeetupsPage meetups={meetups} setMeetups={setMeetups}/>}/>
+            <Route default path="allMeetups" element={<AllMeetupsPage meetups={meetups} favorites={favorites} setFavorites={setFavorites}/>}/>
           </Routes>
         </Layout>
       </Router>

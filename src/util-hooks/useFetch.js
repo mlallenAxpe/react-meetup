@@ -11,7 +11,5 @@ export const useFetch = (options) => {
       });
   }, [options.url]);
 
-  return {
-    data,
-  };
-};
+  return data
+}

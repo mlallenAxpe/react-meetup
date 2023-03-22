@@ -2,7 +2,7 @@ import { useScrollDirection } from "../../utils/scrollDirection";
 import './MainNavigation.module.css'
 import classes from "./MainNavigation.module.css";
 
-export default function MainNavigation() {
+export default function MainNavigation(props) {
   const scrollDirection = useScrollDirection()
   return (
     <header className={scrollDirection === 'down' ? classes.header + ' ' + classes.down : classes.header} data-test="navigation-header">
@@ -23,7 +23,7 @@ export default function MainNavigation() {
           <li>
             <a href="favorites">
               My Favorites
-              <span className={classes.badge}>{0}</span>
+              <span className={classes.badge}>{props.favorites}</span>
             </a>
           </li>
         </ul>
