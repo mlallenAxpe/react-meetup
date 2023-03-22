@@ -18,7 +18,7 @@ export default function FavoritesPage(props) {
     <section>
       <h1>Favorites Page</h1>
       <ul className={classes.list}>
-        {show && show.map(favorite => <FavoriteItem value={favorite} />)}
+        {show && show.map(favorite => <FavoriteItem key={favorite.id} value={favorite} />)}
       </ul>
     </section>
   );

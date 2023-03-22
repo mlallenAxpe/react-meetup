@@ -37,7 +37,13 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.15.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "enzyme": "^3.11.0"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

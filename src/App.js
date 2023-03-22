@@ -1,4 +1,5 @@
-import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import { useFetch } from "./util-hooks/useFetch";
 
 import AllMeetupsPage from "./pages/AllMeetupsPage";
@@ -16,8 +17,8 @@ function App() {
   const dataMeetups = useFetch({
     url: "/data.json",
   })
-  const [meetups, setMeetups] = useState([])
-  const [favorites, setFavorites] = useState([])
+  const [meetups, setMeetups] = useState(null)
+  const [favorites, setFavorites] = useState(null)
 
   useEffect(() => {
     setMeetups(dataMeetups)
@@ -34,7 +35,8 @@ function App() {
           <Routes>
             <Route path="favorites" element={<FavoritesPage favorites={favorites} meetups={meetups}/>}/>
             <Route path="newMeetup" element={<NewMeetupsPage meetups={meetups} setMeetups={setMeetups}/>}/>
-            <Route default path="allMeetups" element={<AllMeetupsPage meetups={meetups} favorites={favorites} setFavorites={setFavorites}/>}/>
+            <Route path="allMeetups" element={<AllMeetupsPage meetups={meetups} favorites={favorites} setFavorites={setFavorites}/>}/>
+            <Route path="*" element={<Navigate to="allMeetups" />} />
           </Routes>
         </Layout>
       </Router>

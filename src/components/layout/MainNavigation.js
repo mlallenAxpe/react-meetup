@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { useScrollDirection } from "../../utils/scrollDirection";
 import './MainNavigation.module.css'
 import classes from "./MainNavigation.module.css";
@@ -10,21 +12,13 @@ export default function MainNavigation(props) {
       <nav>
         <ul>
           <li>
-            <a href="allMeetups">
-              All Meetups
-            </a>
-          </li>
-
-          <li>
-            <a href="newMeetup">
-              Add New Meetup
-            </a>
+            <Link to="/allMeetups">All Meetups</Link>
           </li>
           <li>
-            <a href="favorites">
-              My Favorites
-              <span className={classes.badge}>{props.favorites}</span>
-            </a>
+            <Link to="/newMeetup">Add New Meetup</Link>
+          </li>
+          <li>
+            <Link to="/favorites">My Favorites <span className={classes.badge}>{props.favorites}</span></Link>
           </li>
         </ul>
       </nav>

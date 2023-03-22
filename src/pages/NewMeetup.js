@@ -1,13 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 
 export default function NewMeetupsPage(props) {
   const { meetups, setMeetups } = props
+  const navigate = useNavigate()
 
   const newMeetup = (meetup) => {
     let newId = `m${meetups.length+1}`
     meetup.id = newId
-    console.log(meetup)
     setMeetups([...meetups, meetup])
+    navigate("/allMeetups")
   }
   return (
     <section>
