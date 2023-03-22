@@ -1,10 +1,11 @@
 import { useScrollDirection } from "../../utils/scrollDirection";
+import './MainNavigation.module.css'
 import classes from "./MainNavigation.module.css";
 
 export default function MainNavigation() {
   const scrollDirection = useScrollDirection()
   return (
-    <header className={classes.header + ` ${scrollDirection}`} data-test="navigation-header">
+    <header className={scrollDirection === 'down' ? classes.header + ' ' + classes.down : classes.header} data-test="navigation-header">
       <div className={classes.logo}>React Meetups</div>
       <nav>
         <ul>
