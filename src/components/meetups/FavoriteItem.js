@@ -2,7 +2,7 @@ import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
 
 export default function FavoriteItem(props) {
-  let { value } = props
+  let { value, unsetFave } = props
 
   return (
     <li key={value.id} className={classes.item} data-test='meet-up-item'>
@@ -14,6 +14,9 @@ export default function FavoriteItem(props) {
           <h3 key={`${value.id}_text_title`}>{value.title}</h3>
           <address key={`${value.id}_text_address`}>{value.address}</address>
           <p key={`${value.id}_text_description`}>{value.description}</p>
+        </div>
+        <div key={`${value.id}_button`} className={classes.actions}>
+          <button onClick={()=>unsetFave(value.id)}>Remove from favorites</button>
         </div>
       </Card>
     </li>

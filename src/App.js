@@ -33,7 +33,7 @@ function App() {
         <MainNavigation favorites={favorites ? favorites.length : 0}/>
         <Layout>
           <Routes>
-            <Route path="favorites" element={<FavoritesPage favorites={favorites} meetups={meetups}/>}/>
+            <Route path="favorites" element={<FavoritesPage favorites={favorites} meetups={meetups} setFavorites={setFavorites}/>}/>
             <Route path="newMeetup" element={<NewMeetupsPage meetups={meetups} setMeetups={setMeetups}/>}/>
             <Route path="allMeetups" element={<AllMeetupsPage meetups={meetups} favorites={favorites} setFavorites={setFavorites}/>}/>
             <Route path="*" element={<Navigate to="allMeetups" />} />
