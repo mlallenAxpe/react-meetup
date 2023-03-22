@@ -13,11 +13,7 @@ export default function AllMeetupsPage() {
     <section>
       <h1>All Meetups</h1>
       <ul className={classes.list}>
-        {data && data.map(meet => <MeetupItem data={data} />)}
-        {/* <MeetupItem />
-        <MeetupItem />
-        <MeetupItem />
-        <MeetupItem /> */}
+        {data && data.map(meet => <MeetupItem key={meet.id} data={meet} />)}
       </ul>
     </section>
   );

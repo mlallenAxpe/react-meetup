@@ -1,27 +1,20 @@
-import { useFetch } from "./../../util-hooks/useFetch";
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
 
-export default function MeetupItem(data) {
-  /* const { data } = useFetch({
-    url: "/data.json",
-  }); */
-
-  /* if (!data) return <p>Loading...</p>;
-  let [item] = data; */
-
+export default function MeetupItem(props) {
+  let value = props.data
   return (
-    <li className={classes.item} data-test='meet-up-item'>
+    <li key={value.id} className={classes.item} data-test='meet-up-item'>
       <Card>
-        <div className={classes.image}>
-          <img src={data.image} alt={data.title} />
+        <div key={`${value.id}_image`} className={classes.image}>
+          <img src={value.image} alt={value.title} />
         </div>
-        <div className={classes.content}>
-          <h3>{data.title}</h3>
-          <address>{data.address}</address>
-          <p>{data.description}</p>
+        <div key={`${value.id}_text`} className={classes.content}>
+          <h3 key={`${value.id}_text_title`}>{value.title}</h3>
+          <address key={`${value.id}_text_address`}>{value.address}</address>
+          <p key={`${value.id}_text_description`}>{value.description}</p>
         </div>
-        <div className={classes.actions}>
+        <div key={`${value.id}_button`} className={classes.actions}>
           <button>Add to favorites</button>
         </div>
       </Card>
