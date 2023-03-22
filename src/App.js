@@ -27,7 +27,7 @@ function App() {
   return (
     <div data-test="app">
       <Router>
-        <MainNavigation favorites={favorites.length}/>
+        <MainNavigation favorites={favorites ? favorites.length : 0}/>
         <Layout>
           <Routes>
             <Route path="favorites" element={<FavoritesPage favorites={favorites}/>}/>
