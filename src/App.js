@@ -36,7 +36,7 @@ function App() {
           <Routes>
             <Route path="allMeetups" element={<AllMeetupsPage />}/>
             <Route path="favorites" element={<FavoritesPage />}/>
-            <Route path="newMeetups" element={<NewMeetupsPage />}/>
+            <Route path="newMeetup" element={<NewMeetupsPage />}/>
             <Route path="" element={<AllMeetupsPage />}/>
           </Routes>
         </Layout>
