@@ -21,8 +21,11 @@ function App() {
 
   useEffect(() => {
     setMeetups(dataMeetups)
+    
+  }, [dataMeetups])
+  useEffect(() => {
     setFavorites(dataFavorites)
-  }, [dataMeetups, dataFavorites])
+  }, [dataFavorites])
   
   return (
     <div data-test="app">
@@ -30,7 +33,7 @@ function App() {
         <MainNavigation favorites={favorites ? favorites.length : 0}/>
         <Layout>
           <Routes>
-            <Route path="favorites" element={<FavoritesPage favorites={favorites}/>}/>
+            <Route path="favorites" element={<FavoritesPage favorites={favorites} meetups={meetups}/>}/>
             <Route path="newMeetup" element={<NewMeetupsPage meetups={meetups} setMeetups={setMeetups}/>}/>
             <Route default path="allMeetups" element={<AllMeetupsPage meetups={meetups} favorites={favorites} setFavorites={setFavorites}/>}/>
           </Routes>
