@@ -21,11 +21,14 @@ function App() {
 
   useEffect(() => {
     setMeetups(dataMeetups)
-    
   }, [dataMeetups])
   useEffect(() => {
     setFavorites(dataFavorites)
   }, [dataFavorites])
+
+  useEffect(() => {
+    if (meetups) console.log(meetups.length)
+  }, [meetups])
   
   return (
     <div data-test="app">
