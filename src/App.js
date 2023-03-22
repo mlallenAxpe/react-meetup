@@ -25,10 +25,6 @@ function App() {
   useEffect(() => {
     setFavorites(dataFavorites)
   }, [dataFavorites])
-
-  useEffect(() => {
-    if (meetups) console.log(meetups.length)
-  }, [meetups])
   
   return (
     <div data-test="app">
