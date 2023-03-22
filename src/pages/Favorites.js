@@ -8,7 +8,7 @@ export default function FavoritesPage(props) {
   const [show, setShow] = useState([])
 
   useEffect(() => {
-    if (meetups && meetups.length) {
+    if (meetups && meetups.length && favorites && favorites.length) {
       let s = meetups.filter(meetup => favorites.includes(meetup.id))
       setShow(s)
     }
