@@ -1,6 +1,5 @@
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
-import { useEffect } from "react";
 
 export default function MeetupItem(props) {
   let { value, isFave, setFave, unsetFave } = props
