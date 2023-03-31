@@ -1,3 +1,4 @@
+import { makeAutoObservable } from "mobx";
 import { getMeetup, getMeetups, createMeetup, updateMeetup } from "../api/meetup";
 
 class MeetupStore {
@@ -5,11 +6,13 @@ class MeetupStore {
   
   constructor(rootStore) {
     this.rootStore = rootStore
-  }
-  meetupList = []
-  currentMeetup = null
+    this.meetupList = []
+    this.currentMeetup = null
 
-  setMeetupList = (list) => {
+    makeAutoObservable(this)
+  }
+  
+  setMeetupList(list) {
     this.meetupList = list
   }
 
@@ -19,7 +22,11 @@ class MeetupStore {
 
   async getMeetups() {
     let list = await getMeetups()
-    this.setMeetupList(list)
+    try {
+      if (list && this && this.meetupList) this.meetupList = list
+    } catch (error) {
+      console.log(error)
+    }
     return list
   }
 

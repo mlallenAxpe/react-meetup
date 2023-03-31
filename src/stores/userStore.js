@@ -15,19 +15,21 @@ class UserStore {
     this.favorites = list
   }
 
-  setUser(user) {
+  setCurrentUser = (user) => {
     this.user = user
     this.setFavoriteList(user.favorites ?? [])
+    return user
   }
 
-  async getUser(id) {
+  getUser = async (id) => {
     let user = await getUser(id)
-    this.setUser(user)
+    this.setCurrentUser(user)
+    return user
   }
 
   async createUser(data) {
     let user = await createUser(data)
-    this.setUser(user)
+    this.setCurrentUser(user)
   }
 
   async updateUser(id, data) {
@@ -37,18 +39,19 @@ class UserStore {
 
   async getFavorites(id) {
     let favorites = await getFavorites(id)
-    this.setUser({...this.user, favorites})
+    this.setCurrentUser({...this.user, favorites})
     return favorites
   }
 
-  setFavorites = async (user, data) => {
-    await updateFavorites(user._id, data)
-    this.setUser({...this.user, favorites: data})
+  setFavorites = async (data) => {
+    await updateFavorites(this.user._id, data)
+    this.setCurrentUser({...this.user, favorites: data})
+    this.setFavoriteList(data)
     return this.user
   }
 
   resetUser() {
-    this.setUser(null)
+    this.setCurrentUser(null)
   }
 }
 

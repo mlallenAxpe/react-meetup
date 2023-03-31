@@ -1,34 +1,32 @@
 import { useEffect, useState } from "react";
 import FavoriteItem from "../components/meetups/FavoriteItem";
 
+import classes from "./../components/meetups/MeetupList.module.css";
 import { useStores } from "../util-hooks/useStores";
 
-import classes from "./../components/meetups/MeetupList.module.css";
-
 export default function FavoritesPage(props) {
-  const { meetupStore, userStore } = useStores()
-  const { meetupList } = meetupStore
-  const { user, setFavorites } = userStore
+  const { meetups, favorites, setFavorites } = props
+  const { userStore } = useStores()
   
   const [show, setShow] = useState([])
 
   const unsetFavorite = (id) => {
-    let index = user.favorites.indexOf(id)
+    let index = favorites.indexOf(id)
     if (index > -1){
-      let copy = [...user.favorites]
+      let copy = [...favorites]
       copy.splice(index,1)
-      setFavorites(user, copy)
+      userStore.setFavorites(copy)
     }
   }
 
   useEffect(() => {
-    if (meetupList && meetupList.length && user.favorites && user.favorites.length) {
-      let s = meetupList.filter(meetup => user.favorites.includes(meetup._id))
+    if (meetups && meetups.length && favorites && favorites.length) {
+      let s = meetups.filter(meetup => favorites.includes(meetup._id))
       setShow(s)
     } else {
       setShow([])
     }
-  }, [user, meetupList])
+  }, [meetups, favorites])
 
   return (
     <section>

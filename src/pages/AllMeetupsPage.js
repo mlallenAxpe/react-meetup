@@ -2,53 +2,25 @@ import MeetupItem from "../components/meetups/MeetupItem";
 import classes from "./../components/meetups/MeetupList.module.css";
 
 import { useStores } from "../util-hooks/useStores";
-import { useEffect, useState } from "react";
+import uniqBy from "../utils/uniqBy";
 
 export default function AllMeetupsPage(props) {
-  const {meetupStore, userStore} = useStores()
+  const { meetups, favorites } = props
+  const { userStore } = useStores()
 
-  const { meetupList } = meetupStore
-  const { user, favorites, setFavorites } = userStore
+  const { user, setFavorites } = userStore
 
-  const [meetups, setMeetups] = useState([])
-
-  async function fetchMeetups() {
-    try{
-      let meets = await meetupStore.getMeetups()
-      setMeetups(meets)
-    } catch (error) {
-      console.log(error)
-    }
+  const addFavorite = (id) => {
+    let copy = uniqBy([...favorites, id])
+    setFavorites(copy)
   }
 
-  async function fetchUser() {
-    try{
-      await userStore.getUser('641d6168e0d76eeaf30b030c')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    fetchMeetups()
-    fetchUser()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    if(meetupList && meetupList.length) setMeetups(meetupList)
-  }, [meetupList])
-
-  const setFavorite = (id) => {
-    setFavorites(user, [...favorites, id])
-  }
-
-  const unsetFavorite = (id) => {
+  const removeFavorite = (id) => {
     let index = user.favorites.indexOf(id)
     if (index > -1){
       let copy = [...user.favorites]
       copy.splice(index,1)
-      setFavorites(user, copy)
+      setFavorites(copy)
     }
   }
   
@@ -56,7 +28,14 @@ export default function AllMeetupsPage(props) {
     <section>
       <h1>All Meetups</h1>
       <ul key="meetupList" className={classes.list}>
-        {meetups && meetups.length && meetups.map(meet => <MeetupItem key={meet._id} value={meet} setFave={setFavorite} unsetFave={unsetFavorite} isFave={favorites.includes(meet._id)}/>)}
+        {meetups && meetups.length && meetups.map(meet => 
+          <MeetupItem key={meet._id}
+                      value={meet}
+                      setFave={addFavorite}
+                      unsetFave={removeFavorite}
+                      isFave={favorites.includes(meet._id)}
+          />
+        )}
       </ul>
     </section>
   );
